@@ -1,0 +1,19 @@
+<div>
+    <div>
+        <h3>Create a new chatroom:</h3>
+        <form name="create" ng-submit="createRoom(roomname)">
+            <input type="text" placeholder="enter room name" required ng-model="roomname" />
+            <input type="submit" value="Create" />
+        </form>
+    </div>
+    <div>
+        <h3>Join an existing rooms:</h3>
+        <ul>
+            <li ng-repeat="room in rooms | orderBy:name ">
+                <a href="#/chat/{{room.id}}" >{{ room.name }}</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

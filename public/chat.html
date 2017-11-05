@@ -1,0 +1,31 @@
+<div>
+    <h2>{{ chatroom.name }}</h2>
+    <a ng-click="leave()">leave room</a>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="message_list">
+                <ul>
+                    <li ng-repeat="msg in msgList">
+                        <p class="nickname_text">{{ msg.nickname }}</p>
+                        <p>{{ msg.message }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <form name="postMsg" ng-submit="send(msgContent)">
+                    <input type="text" placeholder="what's on your mind..." required ng-model="msgContent" />
+                    <input type="submit" value="Send" />
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h4>participants ({{ participants.length }}):</h4>
+            <ul>
+                <li ng-repeat="participant in participants | orderBy:participant ">
+                    {{ participant }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
