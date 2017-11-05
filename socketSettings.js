@@ -1,4 +1,7 @@
+
 module.exports = function (io) {
+
+    var profanityFilter = require('./profanityCensor');
 
     var participants = {};
     io.on('connection', function (socket) {
@@ -14,7 +17,9 @@ module.exports = function (io) {
         });
 
         socket.on('send', function (data) {
-            io.sockets.in(data.room).emit('post', {nickname: data.nickname, message: data.message});
+            profanityFilter(data.message, function(msg) {
+                io.sockets.in(data.room).emit('post', {nickname: data.nickname, message: msg});
+            });
             // save msg to db.
         });
 
@@ -26,6 +31,8 @@ module.exports = function (io) {
         });
     });
 
+    // var postMessage = function(room, nickname, message) {
+    // };
 
     var addParticipant = function (room, name) {
         if (!participants[room])
