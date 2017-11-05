@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
 var http = require('http');
 var socketio = require('socket.io');
+var db = require('./db/dbConnection');
 
 var roomsApi = require('./api/rooms');
 var setSocket = require('./socketSettings');
@@ -37,6 +38,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/rooms', roomsApi);
 setSocket(io);
+
+db.sequelize.authenticate()
+    .then(function() {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(function() {
+        console.error('Unable to connect to the database:', err);
+    });
 
 var port = process.env.PORT || 3111;
 server.listen(port);

@@ -5,6 +5,10 @@
         <div class="col-sm-8">
             <div class="message_list">
                 <ul>
+                    <li class="old_msg" ng-repeat="msg in chatroom.chatHistory">
+                        <p class="nickname_text">{{ msg.nickname }}</p>
+                        <p>{{ msg.message }}</p>
+                    </li>
                     <li ng-repeat="msg in msgList">
                         <p class="nickname_text">{{ msg.nickname }}</p>
                         <p>{{ msg.message }}</p>

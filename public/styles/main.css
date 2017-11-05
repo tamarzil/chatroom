@@ -2,3 +2,10 @@ footer div {
     color: lightslategray;
     font-size: 14px;
 }
+.errorMsg {
+    color: red;
+    font-weight: bold;
+}
+.old_msg {
+    color: lightgray;
+}

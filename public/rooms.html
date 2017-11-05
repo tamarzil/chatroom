@@ -4,6 +4,7 @@
         <form name="create" ng-submit="createRoom(roomname)">
             <input type="text" placeholder="enter room name" required ng-model="roomname" />
             <input type="submit" value="Create" />
+            <span class="errorMsg">{{ createError }}</span>
         </form>
     </div>
     <div>

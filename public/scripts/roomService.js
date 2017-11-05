@@ -22,7 +22,6 @@ angular.module('chatrooms')
                 });
         };
 
-
         return {
             getRoom: getRoomById,
             getRooms: getRooms,

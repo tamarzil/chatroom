@@ -3,6 +3,7 @@ angular.module('chatrooms')
     .controller('ChatController', ["$scope", "$rootScope", "$routeParams", "$location", "socketWrapper", "roomService",
         function($scope, $rootScope, $routeParams, $location, socketWrapper, roomService) {
 
+            $scope.chatHistory = [];
             $scope.msgList = [];
             $scope.participants = [];
 
@@ -14,7 +15,11 @@ angular.module('chatrooms')
             roomService.getRoom($routeParams.id).then(function(data) {   // check route param for validity
                 var chatroom = data;
                 $scope.chatroom = chatroom;    // check that room isn't null
+                console.log($scope.chatroom.chatHistory);
                 socketWrapper.emit('joinRoom', { nickname: nickname, room: chatroom.name });
+            }).catch(function(err) {
+                console.log(err);
+                $location.path('/rooms');
             });
 
             socketWrapper.on('roomDetails', function (data) {
@@ -39,7 +44,7 @@ angular.module('chatrooms')
             $scope.send = function(msgContent) {
                 var chatroom = $scope.chatroom;
                 console.log("user sent msg: " + msgContent);
-                socketWrapper.emit('send', { nickname: nickname, message: msgContent, room: chatroom.name });
+                socketWrapper.emit('send', { nickname: nickname, message: msgContent, room: { id: chatroom.id, name: chatroom.name } });
             };
 
             $scope.leave = function() {

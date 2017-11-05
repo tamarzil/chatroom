@@ -1,3 +1,4 @@
+var roomModel = require('./db/RoomModel');
 
 module.exports = function (io) {
 
@@ -18,9 +19,9 @@ module.exports = function (io) {
 
         socket.on('send', function (data) {
             profanityFilter(data.message, function(msg) {
-                io.sockets.in(data.room).emit('post', {nickname: data.nickname, message: msg});
+                io.sockets.in(data.room.name).emit('post', {nickname: data.nickname, message: msg});
+                persistMessage(data.room.id, {nickname: data.nickname, message: msg});
             });
-            // save msg to db.
         });
 
         socket.on('leaveRoom', function (data) {
@@ -30,9 +31,6 @@ module.exports = function (io) {
             io.sockets.in(data.room).emit('userLeft', {nickname: data.nickname, participants: participants[data.room]})
         });
     });
-
-    // var postMessage = function(room, nickname, message) {
-    // };
 
     var addParticipant = function (room, name) {
         if (!participants[room])
@@ -50,4 +48,15 @@ module.exports = function (io) {
             participants[room].splice(index, 1);
     };
 
+    var addMsg = function(existing, newMsg) {
+        existing.push(newMsg);
+        return existing;
+    }
+
+    var persistMessage = function(roomId, msg) {
+        roomModel.findById(roomId).then(function(room) {
+            room.set('chatHistory', addMsg(room.get('chatHistory'), msg));
+            room.save();
+        });
+    };
 };
