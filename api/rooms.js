@@ -25,10 +25,10 @@ router.post('/', function (req, res) {
     if (!roomname) {
         res.status(404).send('Not found');
     } else {
-        var newRoom = roomModel.create({
+        roomModel.create({
             name: roomname,
             chatHistory: []
-        }).then(function() {
+        }).then(function(newRoom) {
             res.json(newRoom);
         }).catch(function(err) {
             console.log(err);

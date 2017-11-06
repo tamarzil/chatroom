@@ -1,5 +1,17 @@
 
 angular.module('chatrooms')
-    .controller('LoginController', ["$scope", function ($scope) {
-    $scope.msg = "this is login view";
-}]);
+    .controller('LoginController', ["$location", "$scope", "$http", "$rootScope",
+        function($location, $scope, $http, $rootScope) {
+
+            $scope.loginUser = function(user) {
+                $http.post('/login', user).then(function(response) {
+                    // login success
+                    $rootScope.currentUser = response.data;
+                    $scope.loginError = null;
+                    $location.path('/rooms');
+                }, function(response) {
+                    // login failed
+                    $scope.loginError = response.statusText;
+                });
+            };
+        }]);

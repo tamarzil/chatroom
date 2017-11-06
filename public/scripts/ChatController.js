@@ -7,10 +7,7 @@ angular.module('chatrooms')
             $scope.msgList = [];
             $scope.participants = [];
 
-            if (!$rootScope.nickname)
-                $rootScope.nickname = "moshe" + Math.floor((Math.random() * 100) + 1); // get from login data
-
-            var nickname = $rootScope.nickname;
+            var nickname = $rootScope.currentUser.nickname;
 
             roomService.getRoom($routeParams.id).then(function(data) {   // check route param for validity
                 var chatroom = data;

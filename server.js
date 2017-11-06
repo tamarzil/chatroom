@@ -5,9 +5,11 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var socketio = require('socket.io');
 var db = require('./db/dbConnection');
+var passport = require('passport');
 
 var roomsApi = require('./api/rooms');
 var setSocket = require('./socketSettings');
+var authApi = require('./auth/auth.js');
 
 var app = express();
 var server = http.Server(app);
@@ -17,6 +19,16 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('./auth/passport')(passport);
+
+//Cookie and session
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+app.use(session({ secret: 'AiQlvTad3d' }));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -37,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 app.use('/api/rooms', roomsApi);
+authApi(app, passport);
 setSocket(io);
 
 db.sequelize.authenticate()
