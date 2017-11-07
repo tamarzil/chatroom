@@ -55,7 +55,6 @@ angular.module('chatrooms')
 
             $scope.getType = function(index, msgList) {
                 var msgNickname = msgList[index].nickname;
-                console.log(nickname);
                 return msgNickname.length > 0 ?
                     (msgNickname == $rootScope.currentUser.nickname ? 'mine' : '') : 'info';
             };

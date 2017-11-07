@@ -6,7 +6,7 @@ angular.module('chatrooms')
                 $http.post('/signup', user).then(function(response) {
                     if (response.data) {
                         if (response.data.success) {
-                            $rootScope.currentUser = response.data;
+                            $rootScope.currentUser = response.data.user;
                             $scope.signupError = null;
                             $location.path('/rooms');
                         } else {
