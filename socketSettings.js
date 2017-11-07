@@ -7,6 +7,7 @@ module.exports = function (io) {
     var participants = {};
     io.on('connection', function (socket) {
         console.log('got connection...');
+
         socket.on('joinRoom', function (data) {
             socket.join(data.room);
             addParticipant(data.room, data.nickname);
@@ -21,6 +22,7 @@ module.exports = function (io) {
             profanityFilter(data.message, function(msg) {
                 io.sockets.in(data.room.name).emit('post', {nickname: data.nickname, message: msg});
                 persistMessage(data.room.id, {nickname: data.nickname, message: msg});
+                console.log('finished handling post: ' + msg);
             });
         });
 
@@ -36,7 +38,8 @@ module.exports = function (io) {
         if (!participants[room])
             participants[room] = [];
 
-        participants[room].push(name);
+        if (participants[room].indexOf(name) < 0 )
+            participants[room].push(name);
     };
 
     var removeParticipant = function (room, name) {
@@ -58,5 +61,13 @@ module.exports = function (io) {
             room.set('chatHistory', addMsg(room.get('chatHistory'), msg));
             room.save();
         });
+    };
+
+    var isSocketInRoom = function(socketId, socketsInRoom) {
+        socketsInRoom.forEach(function (client) {
+            if (socketId == client.id)
+                return true;
+        });
+        return false;
     };
 };

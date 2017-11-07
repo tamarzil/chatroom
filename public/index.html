@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat Room</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css" />
     <script src="bower_components/angular/angular.js"></script>
@@ -13,7 +14,7 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="bower_components/angular-socket-io/socket.js"></script>
-    <!--<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>-->
+    <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/socketWrapper.js"></script>
     <script src="scripts/roomService.js"></script>
@@ -24,19 +25,30 @@
     <script src="scripts/ProfileController.js"></script>
 </head>
 <body>
-<div>
-    <!--<img src="icon.png">-->
-    <h2>Hello Chat Room</h2>
-    <p>Angular check: {{ 657 / 4 }}</p>
-    <div ng-controller="ProfileController">
-        <span>{{ currentUser ? currentUser.nickname : 'Guest' }}</span>
-        &nbsp
-        <a ng-click="logout()">Logout</a>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <img src="./images/chat_logo.png" />
+            <a class="navbar-brand heading_large" >Chat Mate</a>
+        </div>
+        <div ng-controller="ProfileController">
+            <div class="user_profile" >
+                <span class="heading_med">{{ currentUser ? currentUser.nickname : 'Guest' }}</span>
+                &nbsp
+                <a role="button" ng-click="logout()">Logout</a>
+            </div>
+        </div>
     </div>
+</nav>
+
+
+<div class="container main_content">
+    <div ng-view ></div>
 </div>
-<div ng-view ></div>
-</body>
-<footer>
-    <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+<footer class="footer">
+    <div class="container">
+        <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </div>
 </footer>
+</body>
 </html>

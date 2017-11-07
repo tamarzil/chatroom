@@ -23,7 +23,7 @@ angular.module('chatrooms')
         });
 
         $scope.createRoom = function(name) {
-            console.log("creating room " + name);
+            $scope.roomname = "";
             roomService.createRoom(name).then(onCreateRoomSuccess, onCreateRoomError);
         };
     }]);

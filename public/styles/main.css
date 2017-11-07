@@ -1,11 +1,124 @@
-footer div {
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #696969;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.heading_large {
+    font-size: 30px;
+    font-weight: 700;
+}
+.heading_med {
+    font-size: 16px;
+    font-weight: 700;
+}
+body > .container {
+    padding: 0 15px;
+}
+.navbar {
+    border-radius: 0;
+}
+.navbar-header img {
+    float: left;
+    margin: 5px 10px 0 0;
+    height: 40px;
+}
+.main_content {
+    flex: 1;
+}
+.footer {
+    margin-top: 30px;
+    height: 40px;
+    background-color: #f8f8f8;
+    border-top: solid 1px #e7e7e7;
     color: lightslategray;
     font-size: 14px;
+    padding-top: 10px;
+}
+.user_profile {
+    float: right;
+    padding: 20px 15px 8px;
+}
+.form-group .form-control {
+    max-width: 400px;
+    margin-bottom: 10px;
 }
 .errorMsg {
+    margin-left: 15px;
     color: red;
     font-weight: bold;
 }
+.top-space {
+    margin-top: 30px;
+}
+ul {
+    list-style: none;
+    padding-left: 15px;
+}
+.room_list li {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+.chatroom_header {
+    text-align: center;
+    margin: 20px 0 30px;
+}
+.chatroom_header h2 {
+    display: inline;
+    margin-right: 30px;
+    border-bottom: solid 1px #dcdcdc;
+}
+.chatroom_header a {
+    font-size: 16px;
+}
+.message_list {
+    border: solid 1px #dcdcdc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    height: 400px;
+    overflow-y: scroll;
+}
+.message_list ul {
+    padding: 0;
+}
+.message_list li {
+    padding: 1px 5px;
+    width: 50%;
+}
+.message_list li p {
+    margin: 0;
+    font-size: 12px;
+}
+.msg {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+.msg.info {
+    color: grey;
+    background-color: #f1f1f1;
+    border-color: #f5f5f5;
+    margin-left: 100px;
+}
+.msg.mine {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    margin-left: 40px;
+}
 .old_msg {
-    color: lightgray;
+    color: #464a4e;
+    background-color: #e7e8ea;
+    border-color: #dddfe2;
+}
+.nickname_text {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .form-inline .form-control {
+        width: 400px;
+    }
 }

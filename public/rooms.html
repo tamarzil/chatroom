@@ -1,15 +1,15 @@
 <div>
     <div>
-        <h3>Create a new chatroom:</h3>
-        <form name="create" ng-submit="createRoom(roomname)">
-            <input type="text" placeholder="enter room name" required ng-model="roomname" />
-            <input type="submit" value="Create" />
+        <h3>Create a new chatroom</h3>
+        <form class="form-inline" name="create" ng-submit="createRoom(roomname)">
+            <input class="form-control" type="text" placeholder="Enter room name" required ng-model="roomname" />
+            <input class="btn btn-primary" type="submit" value="Create" />
             <span class="errorMsg">{{ createError }}</span>
         </form>
     </div>
-    <div>
-        <h3>Join an existing rooms:</h3>
-        <ul>
+    <div class="top-space">
+        <h3>Or join an existing room</h3>
+        <ul class="room_list">
             <li ng-repeat="room in rooms | orderBy:name ">
                 <a href="#/chat/{{room.id}}" >{{ room.name }}</a>
             </li>

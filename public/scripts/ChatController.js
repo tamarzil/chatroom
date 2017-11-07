@@ -1,7 +1,7 @@
 
 angular.module('chatrooms')
-    .controller('ChatController', ["$scope", "$rootScope", "$routeParams", "$location", "socketWrapper", "roomService",
-        function($scope, $rootScope, $routeParams, $location, socketWrapper, roomService) {
+    .controller('ChatController', ["$scope", "$rootScope", "$routeParams", "$location", "$window", "socketWrapper", "roomService",
+        function($scope, $rootScope, $routeParams, $location, $window, socketWrapper, roomService) {
 
             $scope.chatHistory = [];
             $scope.msgList = [];
@@ -35,6 +35,7 @@ angular.module('chatrooms')
             });
 
             socketWrapper.on('post', function (data) {
+                console.log('got post: ' + data.message);
                 $scope.msgList.push({ nickname: data.nickname, message: data.message});
             });
 
@@ -42,6 +43,7 @@ angular.module('chatrooms')
                 var chatroom = $scope.chatroom;
                 console.log("user sent msg: " + msgContent);
                 socketWrapper.emit('send', { nickname: nickname, message: msgContent, room: { id: chatroom.id, name: chatroom.name } });
+                $scope.msgContent = "";
             };
 
             $scope.leave = function() {
@@ -51,4 +53,10 @@ angular.module('chatrooms')
                 $location.path('/rooms');
             };
 
+            $scope.getType = function(index, msgList) {
+                var msgNickname = msgList[index].nickname;
+                console.log(nickname);
+                return msgNickname.length > 0 ?
+                    (msgNickname == $rootScope.currentUser.nickname ? 'mine' : '') : 'info';
+            };
         }]);

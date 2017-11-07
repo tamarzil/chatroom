@@ -1,24 +1,26 @@
 <div>
-    <h2>{{ chatroom.name }}</h2>
-    <a ng-click="leave()">leave room</a>
+    <div class="chatroom_header">
+        <h2>Chat Room: {{ chatroom.name }}</h2>
+        <a role="button" ng-click="leave()">Leave</a>
+    </div>
     <div class="row">
         <div class="col-sm-8">
-            <div class="message_list">
+            <div scroll-glue class="message_list">
                 <ul>
-                    <li class="old_msg" ng-repeat="msg in chatroom.chatHistory">
+                    <li class="alert old_msg" ng-repeat="msg in chatroom.chatHistory" >
                         <p class="nickname_text">{{ msg.nickname }}</p>
                         <p>{{ msg.message }}</p>
                     </li>
-                    <li ng-repeat="msg in msgList">
+                    <li class="alert msg" ng-repeat="msg in msgList" ng-class="getType($index, msgList)">
                         <p class="nickname_text">{{ msg.nickname }}</p>
                         <p>{{ msg.message }}</p>
                     </li>
                 </ul>
             </div>
             <div>
-                <form name="postMsg" ng-submit="send(msgContent)">
-                    <input type="text" placeholder="what's on your mind..." required ng-model="msgContent" />
-                    <input type="submit" value="Send" />
+                <form class="form-inline" name="postMsg" ng-submit="send(msgContent)">
+                    <input class="form-control" type="text" placeholder="what's on your mind..." required ng-model="msgContent" />
+                    <input class="btn btn-primary" type="submit" value="Send" />
                 </form>
             </div>
         </div>
